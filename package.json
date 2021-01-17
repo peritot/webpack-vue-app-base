@@ -5,7 +5,7 @@
   "scripts": {
     "serve": "webpack serve --config webpack.dev.js",
     "build": "webpack --config webpack.prod.js",
-    "lint": "echo \"请使用 ESLint 实现此任务\""
+    "lint": "eslint --fix --ext .js,.vue src"
   },
   "dependencies": {
     "core-js": "^3.6.5",
@@ -15,19 +15,29 @@
     "@babel/core": "^7.12.10",
     "@babel/preset-env": "^7.12.11",
     "@vue/cli-plugin-babel": "^4.5.10",
+    "babel-eslint": "^10.1.0",
     "babel-loader": "^8.2.2",
     "case-sensitive-paths-webpack-plugin": "^2.3.0",
     "chalk": "^4.1.0",
     "clean-webpack-plugin": "^3.0.0",
     "copy-webpack-plugin": "^7.0.0",
     "css-loader": "^5.0.1",
+    "eslint": "^7.18.0",
+    "eslint-config-prettier": "^7.1.0",
+    "eslint-loader": "^4.0.2",
+    "eslint-plugin-prettier": "^3.3.1",
+    "eslint-plugin-vue": "^7.4.1",
+    "eslint-webpack-plugin": "^2.4.1",
     "file-loader": "^6.2.0",
     "friendly-errors-webpack-plugin": "^1.7.0",
     "html-webpack-plugin": "^4.5.1",
+    "husky": "^4.3.8",
     "less": "^4.1.0",
     "less-loader": "^7.2.1",
+    "lint-staged": "^10.5.3",
     "postcss": "^8.2.4",
     "postcss-loader": "^4.1.0",
+    "prettier": "^2.2.1",
     "sass": "^1.32.4",
     "sass-loader": "^10.1.1",
     "style-loader": "^2.0.0",
@@ -38,7 +48,7 @@
     "url-loader": "^4.1.1",
     "vue-loader": "^15.9.6",
     "vue-template-compiler": "^2.6.12",
-    "webpack": "^5.14.0",
+    "webpack": "^5.15.0",
     "webpack-cli": "^4.3.1",
     "webpack-dev-server": "^3.11.2",
     "webpack-merge": "^5.7.3"
@@ -50,12 +60,29 @@
     },
     "extends": [
       "plugin:vue/essential",
+      "plugin:prettier/recommended",
       "eslint:recommended"
     ],
     "parserOptions": {
       "parser": "babel-eslint"
     },
     "rules": {}
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,vue}": [
+      "prettier --write",
+      "eslint --fix",
+      "git add"
+    ],
+    "*.{css,scss,less,html,json,md,markdown}": [
+      "prettier --write",
+      "git add"
+    ]
   },
   "browserslist": [
     "> 1%",

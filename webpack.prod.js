@@ -15,7 +15,7 @@ module.exports = merge(common, {
   stats: 'errors-only',
   output: {
     filename: 'js/[name].[contenthash:8].js',
-    chunkFilename: 'js/[name].[contenthash:8].js'
+    chunkFilename: 'js/[name].[contenthash:8].js',
   },
   module: {
     rules: [
@@ -23,34 +23,34 @@ module.exports = merge(common, {
         test: /\.m?jsx?$/,
         use: [
           {
-            loader: 'babel-loader',
-            options: {
-              presets: [['@babel/preset-env', { modules: 'auto' }]]
-            }
+            loader: 'thread-loader',
           },
           {
-            loader: 'thread-loader'
-          }
-        ]
-      }
-    ]
+            loader: 'babel-loader',
+            options: {
+              presets: [['@babel/preset-env', { modules: 'auto' }]],
+            },
+          },
+        ],
+      },
+    ],
   },
   plugins: [
     new CleanWebpackPlugin(),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('production'),
-      BASE_URL: JSON.stringify('/')
+      BASE_URL: JSON.stringify('/'),
     }),
     new FriendlyErrorsWebpackPlugin({
       compilationSuccessInfo: {
-        messages: [`Build complete. The ${chalk.cyan('dist')} directory is ready to be deployed.`, `Check out deployment instructions at ${chalk.cyan('https://cli.vuejs.org/guide/deployment.html')}`]
+        messages: [`Build complete. The ${chalk.cyan('dist')} directory is ready to be deployed.`, `Check out deployment instructions at ${chalk.cyan('https://cli.vuejs.org/guide/deployment.html')}`],
       },
       clearConsole: true,
       additionalTransformers: [],
-      additionalFormatters: []
+      additionalFormatters: [],
     }),
     new webpack.ids.HashedModuleIdsPlugin({
-      hashDigest: 'hex'
+      hashDigest: 'hex',
     }),
     new HtmlWebpackPlugin({
       title: 'vue-app-base',
@@ -59,8 +59,8 @@ module.exports = merge(common, {
         removeComments: true,
         collapseWhitespace: true,
         collapseBooleanAttributes: true,
-        removeScriptTypeAttributes: true
-      }
-    })
-  ]
+        removeScriptTypeAttributes: true,
+      },
+    }),
+  ],
 });
